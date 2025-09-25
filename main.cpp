@@ -10,13 +10,14 @@ int main() {
 
     std::vector<int,SGIAllocator<int>> vec;
 
-    for (int i = 0 ; i < 10 ; i++) {
-        vec.push_back(dist(gen));
-    }
+    std::chrono::steady_clock::time_point start = std::chrono::steady_clock::now();
 
-    for (int i = 0 ; i < vec.size() ; i++) {
-        std::cout << vec[i] << std::endl;
+    for (int i = 0 ; i < 100000000; i++) {
+        vec.emplace_back(10);
     }
+    std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
 
+    std::chrono::duration<double> time = end - start;
+    std::cout << time.count() << std::endl;
     return 0;
 }
